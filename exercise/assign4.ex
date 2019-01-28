@@ -34,10 +34,12 @@ defmodule Assign4 do
     def add(x, [], l) do
         l ++ [x]
     end
-    def add(x, [head | body], l) do
-        if x != head do
-            add(x, body, l)
-        end
+
+    def add(x, [x | body], l) do
+        l
+    end
+    def add(x, [y | body], l) do
+        add(x, body, l)
     end
 
     # will be covered in def remove(_, [], l) do
