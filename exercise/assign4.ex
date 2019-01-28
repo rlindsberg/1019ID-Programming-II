@@ -55,12 +55,17 @@ defmodule Assign4 do
 
     ## replacement for if-else
     def remove(x, [head | body], new) when x != head do
-
         remove(x, body, new ++ [head])
     end
     def remove(x, [head | body], new) do
         remove(x, body, new)
 
+    end
+
+    #unique(l): return a list of unique elements in the list l, that is [:a, :b, :d] are the unique elements in the list [:a, :b, :a, :d, :a, :b, :b, :a]
+    def returnUniqueList([]) do [] end
+    def returnUniqueList([x | tail]) do
+        [x | returnUniqueList(remove(x, tail))]
     end
 
 
