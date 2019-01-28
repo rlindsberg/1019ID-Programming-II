@@ -69,4 +69,43 @@ defmodule Assign4 do
     end
 
 
+    # pack(l): return a list containing lists of equal elements, [:a, :a, :b, :c, :b, :a, :c]shouldreturn[[:a, :a, :a], [:b, :b], [:c, :c]]
+    # the function pack is called groupListByElement here
+    def groupListByElement([]) do
+        []
+    end
+
+    def groupListByElement([x | body]) do
+        {all, rest} = matchElementInList(x, body, [x], [])
+        [all | groupListByElement(rest)]
+    end
+
+
+
+
+    # @brief A help function for groupListByElement(x, list)
+    # @param x, tail, all, rest
+    # @return all, rest
+
+    # base case: if list if empty
+    def matchElementInList(_, [], all, rest ) do
+        # return list of x, and a list of remaining element
+        {all, rest}
+    end
+
+    # check if x matches the first element in the list "[x | body]"
+    def matchElementInList(x, [x | body], all, rest) do
+        # "all ++ [x]" put "x" from "[x | body]" in the list "all"
+        # continue checking the rest of the list "body"
+        matchElementInList(x, body, all ++ [x], rest)
+    end
+
+    # last pattern not matched, x is not equal to the first element in the list "[x | body]"
+    def matchElementInList(x, [y | body], all, rest) do
+        # "rest ++ [y]" put "y" in the list "rest"
+        # continue checking the rest of the list "body"
+        matchElementInList(x, body, all, rest ++ [y])
+    end
+    
+
 end
