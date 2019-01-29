@@ -106,6 +106,22 @@ defmodule Assign4 do
         # continue checking the rest of the list "body"
         matchElementInList(x, body, all, rest ++ [y])
     end
-    
+
+
+    # reverse(l): return a list where the order of elements is reversed
+    def reverse([]) do [] end
+    def reverse([x | body]) do
+        reverse(body) ++ [x]
+    end
+
+
+
+
+
+
+
+
+
+
 
 end
