@@ -16,6 +16,11 @@ defmodule Huffman do
         freq(body, updatedMap)
     end
 
+    # sort tupples in a list by value, biggest first
+    def sortListByFreq(freqList) do
+        sortedLi = freqList
+                   |> Enum.sort(fn({key1, value1}, {key2, value2}) -> value2 < value1 end)
+    end
 
 
 end
