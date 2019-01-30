@@ -1,10 +1,6 @@
 defmodule Huffman do
     def sample do
-        "the quick brown fox jumps over the lazy dog
-        this is a sample text that we will use when we build
-        up a table we will only handle lower case letters and
-        no punctuation symbols the frequency will of course not
-        represent english but it is probably not that far off"
+        "yx y z x x x f f e f e ff e fee xeef eee"
     end
     def text()  do
         "this is something that we should encode"
@@ -67,12 +63,21 @@ defmodule Huffman do
         |> Enum.sort(fn({key1, value1}, {key2, value2}) -> value1 < value2 end)
     end
 
+    def buildRightLeaningTree([left, right | []]) do
+        [left, right]
+    end
     def buildRightLeaningTree([leaf1, leaf2 | restLeaves]) do
         createNode(leaf1, leaf2, restLeaves)
     end
     def createNode({:leaf, key1, value1}, {:leaf, key2, value2}, list) do
         node = { :node, {:leaf, key1, value1}, {:leaf, key2, value2}, value1 + value2 } # {:node, {:leaf, "z", 1}, {:leaf, "v", 1}}
         List.insert_at(list, 0, node) # insert_at(list, index, value)
+#        buildRightLeaningTree(list)
+    end
+    def createNode({:node, left, right, value1},{:leaf, key2, value2}, list) do
+      node = {:node, {:node, left, right, value1},{:leaf, key2, value2}, value1 + value2}
+      List.insert_at(list, 0, node) # insert_at(list, index, value)
+      buildRightLeaningTree(list)
     end
 
 end
