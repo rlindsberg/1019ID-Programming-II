@@ -1,13 +1,13 @@
 defmodule Huffman do
     def sample do
-        'the quick brown fox jumps over the lazy dog
+        "the quick brown fox jumps over the lazy dog
         this is a sample text that we will use when we build
         up a table we will only handle lower case letters and
         no punctuation symbols the frequency will of course not
-        represent english but it is probably not that far off'
+        represent english but it is probably not that far off"
     end
     def text()  do
-        'this is something that we should encode'
+        "this is something that we should encode"
     end
     def test do
         sample = sample()
@@ -18,9 +18,19 @@ defmodule Huffman do
         seq = encode(text, encode)
         decode(seq, decode)
     end
+
+    # we represent a leaf with a single character and a node as a simple tuple
+    # with two branches: {left, right}. node = {left = char, right = node}
     def tree(sample) do
-        # To implement...
+        sample
+        |> freq # returns [{"\n", 4}, {" ", 78}, {"a", 13}, {"b", 7},...]
+        |> sortListByFreq # returns [{" ", 78}, {"e", 24}, {"t", 20},...]
+        |> Enum.map(fn {key, value} -> {:leaf, key, value} end) # [{:leaf, " ", 78},...]
+        |> buildRightLeaningTree
+
     end
+
+
     def encode_table(tree) do
         # To implement...
     end
@@ -51,11 +61,18 @@ defmodule Huffman do
         freq(body, updatedMap)
     end
 
-    # sort tupples in a list by value, biggest first
+    # sort tupples in a list by value, smallest first
     def sortListByFreq(freqList) do
         sortedLi = freqList
-        |> Enum.sort(fn({key1, value1}, {key2, value2}) -> value2 < value1 end)
+        |> Enum.sort(fn({key1, value1}, {key2, value2}) -> value1 < value2 end)
     end
 
+    def buildRightLeaningTree([leaf1, leaf2 | restLeaves]) do
+        createNode(leaf1, leaf2, restLeaves)
+    end
+    def createNode({:leaf, key1, value1}, {:leaf, key2, value2}, list) do
+        node = { :node, {:leaf, key1, value1}, {:leaf, key2, value2}, value1 + value2 } # {:node, {:leaf, "z", 1}, {:leaf, "v", 1}}
+        List.insert_at(list, 0, node) # insert_at(list, index, value)
+    end
 
 end
