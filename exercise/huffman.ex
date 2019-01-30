@@ -5,15 +5,15 @@ defmodule Huffman do
     def text()  do
         "this is something that we should encode"
     end
-    def test do
-        sample = sample()
-        tree = tree(sample)
-        encode = encode_table(tree)
-        decode = decode_table(tree)
-        text = text()
-        seq = encode(text, encode)
-        decode(seq, decode)
-    end
+    # def test do
+    #     sample = sample()
+    #     tree = tree(sample)
+    #     encode = encode_table(tree)
+    #     decode = decode_table(tree)
+    #     text = text()
+    #     seq = encode(text, encode)
+    #     decode(seq, decode)
+    # end
 
     # we represent a leaf with a single character and a node as a simple tuple
     # with two branches: {left, right}. node = {left = char, right = node}
@@ -23,13 +23,24 @@ defmodule Huffman do
         |> sortListByFreq # returns [{" ", 78}, {"e", 24}, {"t", 20},...]
         |> Enum.map(fn {key, value} -> {:leaf, key, value} end) # [{:leaf, " ", 78},...]
         |> buildRightLeaningTree
+        |> Enum.at(0) # remove []
 
     end
 
+    # create encode table from Huffman tree, {node, leaf}
 
-    def encode_table(tree) do
-        # To implement...
+    # result [{" ", "0"}, {"e", "10"}, {"f", "110"}, {"x", "1110"}, {"y", "11110"}]
+    # makes y 11111, find disappeared z
+    def encode_table({:node, {:leaf, char1, freq1}, {:leaf, char2, freq2}, freq}, code_table, current_path) do
+        code_table = [code_table ++ [{char2, "#{current_path}#{0}"}] ]
+        code_table = [code_table ++ [{char1, (current_path |> String.slice(0..-1))<>"1" }] ]
+        |> List.flatten
     end
+    def encode_table({:node, child_node, {:leaf, child_leaf_key, child_leaf_value}, freq}, code_table, current_path) do
+        code_table = [code_table ++ [{child_leaf_key, "#{current_path}#{0}"}] ]
+        encode_table(child_node, code_table, "#{current_path}#{1}")
+    end
+
     def decode_table(tree) do
         # To implement...
     end
