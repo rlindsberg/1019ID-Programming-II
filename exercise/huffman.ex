@@ -1,19 +1,26 @@
 defmodule Huffman do
-    def sample do
+    def sample_xyz do
         "yx y z x x x f f e f e ff e fee xeef eee"
+    end
+    def sample do
+      "the quick brown fox jumps over the lazy dog
+      this is a sample text that we will use when we build
+      up a table we will only handle lower case letters and
+      no punctuation symbols the frequency will of course not
+      represent english but it is probably not that far off"
     end
     def text()  do
         "this is something that we should encode"
     end
-    # def test do
-    #     sample = sample()
-    #     tree = tree(sample)
-    #     encode = encode_table(tree)
-    #     decode = decode_table(tree)
-    #     text = text()
-    #     seq = encode(text, encode)
-    #     decode(seq, decode)
-    # end
+    def test do
+        sample = sample()
+        tree = tree(sample)
+        table = encode_table(tree, [], "")
+        # table = decode_table(tree)
+        text = text()
+        seq = encode(text, table)
+        # decode(seq, decode)
+    end
 
     # we represent a leaf with a single character and a node as a simple tuple
     # with two branches: {left, right}. node = {left = char, right = node}
@@ -42,11 +49,28 @@ defmodule Huffman do
     end
 
     def decode_table(tree) do
-        # To implement...
+        encode_table(tree, [], "")
     end
+
+    # seq:
+    # ["110", "111111111110", "111111110", "11111110", "0", "111111110", "11111110",
+    #  "0", "11111110", "11110", "111111111111111111110", "10", "110", "111111111110",
+    #  "111111110", "1111110", "1111111111111111111110", "0", "110", "111111111110",
+    #  "111110", "110", "0", "1111111111110", "10", "0", "11111110", "111111111110",
+    #  "11110", "11111111110", "1110", "11111111111111111110", "0", "10", "1111110",
+    #  "11111111111111110", "11110", "11111111111111111110", "10"]
     def encode(text, table) do
-        # To implement...
+      text
+      |> String.codepoints
+      |> Enum.map(fn x -> find_code_in_table(x, table) end)
     end
+    ## find the char in table and return its Huffman code
+    def find_code_in_table(char, table) do
+        {_, code} = table
+        |> Enum.find(fn {c, _} -> c == char end)
+        code # return Huffman code
+    end
+
     def decode(seq, tree) do
         # To implement...
     end
@@ -90,6 +114,25 @@ defmodule Huffman do
         node = {:node, {:node, left, right, value1},{:leaf, key2, value2}, value1 + value2}
         list = List.insert_at(list, 0, node) # insert_at(list, index, value)
         buildRightLeaningTree(list)
+    end
+
+    # this is the public api which allows you to pass any binary representation
+    def extract(str) when is_binary(str) do
+      extract(str, "")
+    end
+
+    # this function does the heavy lifting by matching the input binary to
+    # a single bit and sends the rest of the bits recursively back to itself
+    defp extract(<<b :: size(1), bits :: bitstring>>, acc) when is_bitstring(bits) do
+      extract(bits, "#{acc}#{b}")
+    end
+
+    # this is the terminal condition when we don't have anything more to extract
+    defp extract(<<>>, acc), do: acc
+
+    # convert binary to decimal
+    def bin_to_dec() do
+
     end
 
 end
