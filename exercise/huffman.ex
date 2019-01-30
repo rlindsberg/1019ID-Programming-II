@@ -71,13 +71,13 @@ defmodule Huffman do
     end
     def createNode({:leaf, key1, value1}, {:leaf, key2, value2}, list) do
         node = { :node, {:leaf, key1, value1}, {:leaf, key2, value2}, value1 + value2 } # {:node, {:leaf, "z", 1}, {:leaf, "v", 1}}
-        List.insert_at(list, 0, node) # insert_at(list, index, value)
-#        buildRightLeaningTree(list)
+        list = List.insert_at(list, 0, node) # insert_at(list, index, value)
+        buildRightLeaningTree(list)
     end
     def createNode({:node, left, right, value1},{:leaf, key2, value2}, list) do
-      node = {:node, {:node, left, right, value1},{:leaf, key2, value2}, value1 + value2}
-      List.insert_at(list, 0, node) # insert_at(list, index, value)
-      buildRightLeaningTree(list)
+        node = {:node, {:node, left, right, value1},{:leaf, key2, value2}, value1 + value2}
+        list = List.insert_at(list, 0, node) # insert_at(list, index, value)
+        buildRightLeaningTree(list)
     end
 
 end
