@@ -30,6 +30,14 @@ Huffman.tree(Huffman.sample)
   {:leaf, " ", 15}
 ]
 
+[
+  {:node,
+   {:node,
+    {:node,
+     {:node, {:node, {:leaf, "z", 1}, {:leaf, "y", 2}, 3}, {:leaf, "x", 5}, 8},
+     {:leaf, "f", 7}, 15}, {:leaf, "e", 10}, 25}, {:leaf, " ", 15}, 40}
+]
+
 
 {:leaf, " ", 15}                 node, 25
                                      {:node,

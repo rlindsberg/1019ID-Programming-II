@@ -32,8 +32,8 @@ defmodule Huffman do
     # result [{" ", "0"}, {"e", "10"}, {"f", "110"}, {"x", "1110"}, {"y", "11110"}]
     # makes y 11111, find disappeared z
     def encode_table({:node, {:leaf, char1, freq1}, {:leaf, char2, freq2}, freq}, code_table, current_path) do
-        code_table = [code_table ++ [{char2, "#{current_path}#{0}"}] ]
-        code_table = [code_table ++ [{char1, (current_path |> String.slice(0..-1))<>"1" }] ]
+        code_table = [code_table ++ [{char2, "#{current_path}#{0}" }] ]
+        code_table = [code_table ++ [{char1, "#{current_path}#{1}" }] ]
         |> List.flatten
     end
     def encode_table({:node, child_node, {:leaf, child_leaf_key, child_leaf_value}, freq}, code_table, current_path) do
