@@ -64,7 +64,7 @@ defmodule Huffman do
     end
 
     def buildRightLeaningTree([left, right | []]) do
-        {:node, left, right}
+        [{:node, left, right}]
         # [left, right]
     end
     def buildRightLeaningTree([leaf1, leaf2 | restLeaves]) do
