@@ -63,8 +63,8 @@ defmodule Huffman do
         |> Enum.sort(fn({key1, value1}, {key2, value2}) -> value1 < value2 end)
     end
 
-    def buildRightLeaningTree([left, right | []]) do
-        [{:node, left, right}]
+    def buildRightLeaningTree([root_node | []]) do
+        [root_node]
         # [left, right]
     end
     def buildRightLeaningTree([leaf1, leaf2 | restLeaves]) do
