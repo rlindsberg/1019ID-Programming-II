@@ -19,7 +19,7 @@ defmodule Huffman do
         # table = decode_table(tree)
         text = text()
         seq = encode(text, table)
-        # decode(seq, decode)
+        decode(seq, table, "")
     end
 
     # we represent a leaf with a single character and a node as a simple tuple
@@ -71,8 +71,22 @@ defmodule Huffman do
         code # return Huffman code
     end
 
-    def decode(seq, tree) do
-        # To implement...
+
+    def decode([], _, result) do
+        result
+    end
+    def decode([code | rest], table, result) do
+      found_char = code
+      |> find_char_in_table(table)
+      decode(rest, table, "#{result}#{found_char}")
+    end
+
+
+    # find the code in table and return the char
+    def find_char_in_table(char, table) do
+        {char, _} = table
+        |> Enum.find(fn {_, c} -> c == char end)
+        char # return the char
     end
 
     # takes a sample and calculate frequencies for every letter
