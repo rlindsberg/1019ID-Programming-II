@@ -112,13 +112,57 @@ defmodule Huffman do
         |> Enum.sort(fn({key1, value1}, {key2, value2}) -> value1 < value2 end)
     end
 
-    def buildRightLeaningTree([root_node | []]) do
-        [root_node]
-        # [left, right]
+    # def buildRightLeaningTree([root_node | []]) do
+    #     [root_node]
+    #     # [left, right]
+    # end
+    # def buildRightLeaningTree([leaf1, leaf2 | restLeaves]) do
+    #     createNode(leaf1, leaf2, restLeaves)
+    # end
+
+    # {:freq, leafOrNode, freq}
+    def buildRightLeaningTree([thingy1, thingy2 | rest_thingies]) do
+        # createNode(thingy1, thingy2)
+        # |> rebuildTree(rest_thingies)
+        # |> buildRightLeaningTree()
     end
-    def buildRightLeaningTree([leaf1, leaf2 | restLeaves]) do
-        createNode(leaf1, leaf2, restLeaves)
+
+    # insert built node {_, _, _, freq} into rest_thingies.
+    def rebuildTree({_, _, _, freq}, rest_thingies, index_of_rest_thingies) do
+
     end
+
+    # Find which index to insert node at in min prio queue
+    def find_index(nod,queue,n) when n+1 >= length(queue) do
+      n+1
+    end
+    def find_index(nod, queue, n) do
+      nextNod = Enum.at(queue, n+1)
+
+      case elem(nod,0) do
+        :leaf ->
+          {_,_, freq} = nod
+        :node ->
+          {_,_,_,freq} = nod
+      end
+
+      case elem(nextNod,0) do
+        :leaf ->
+          {_,_, nextfreq} = nextNod
+        :node ->
+          {_,_,_,nextfreq} = nextNod
+      end
+
+      # cond do
+      #   freq >= nextfreq ->
+      #     find_index(nod, queue, n+1)
+      #   freq < nextfreq ->
+      #     n+1
+      # end
+    end
+
+
+
     def createNode({:leaf, key1, value1}, {:leaf, key2, value2}, list) do
         node = { :node, {:leaf, key1, value1}, {:leaf, key2, value2}, value1 + value2 } # {:node, {:leaf, "z", 1}, {:leaf, "v", 1}}
         list = List.insert_at(list, 0, node) # insert_at(list, index, value)
@@ -148,5 +192,23 @@ defmodule Huffman do
     def bin_to_dec() do
 
     end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 end
