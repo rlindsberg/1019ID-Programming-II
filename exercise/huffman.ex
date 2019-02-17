@@ -34,16 +34,29 @@ defmodule Huffman do
 
     # create encode table from Huffman tree, {node, leaf}
 
-    # result [{" ", "0"}, {"e", "10"}, {"f", "110"}, {"x", "1110"}, {"y", "11110"}]
-    # makes y 11111, find disappeared z
     def encode_table({:node, {:leaf, empty, char1, freq1}, {:leaf, empty, char2, freq2}, freq}, code_table, current_path) do
         code_table = [code_table ++ [{char2, "#{current_path}#{0}" }] ]
         code_table = [code_table ++ [{char1, "#{current_path}#{1}" }] ]
         |> List.flatten
     end
+    # result [{" ", "0"}, {"e", "10"}, {"f", "110"}, {"x", "1110"}, {"y", "11110"}]
+    # makes y 11111, find disappeared z
+    def encode_table({:node, {:leaf, empty, char1, freq1}, {:leaf, empty, char2, freq2}, freq}, code_table, current_path, left_node, left_node_path) do
+        code_table = [code_table ++ [{char2, "#{current_path}#{0}" }] ]
+        code_table = [code_table ++ [{char1, "#{current_path}#{1}" }] ]
+        encode_table(left_node, code_table, "#{left_node_path}#{0}")
+    end
+
+    def encode_table({:node, child_node, {:leaf, empty, child_leaf_key, child_leaf_value}, freq}, code_table, current_path, left_node, left_node_path) do
+        code_table = [code_table ++ [{child_leaf_key, "#{current_path}#{0}"}] ]
+        encode_table(child_node, code_table, "#{current_path}#{1}")
+    end
     def encode_table({:node, child_node, {:leaf, empty, child_leaf_key, child_leaf_value}, freq}, code_table, current_path) do
         code_table = [code_table ++ [{child_leaf_key, "#{current_path}#{0}"}] ]
         encode_table(child_node, code_table, "#{current_path}#{1}")
+    end
+    def encode_table({:node, left_node, right_node, freq}, code_table, current_path) do
+        encode_table(right_node, code_table, "#{current_path}#{1}", left_node, current_path)
     end
 
     def decode_table(tree) do
