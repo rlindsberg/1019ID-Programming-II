@@ -120,18 +120,21 @@ defmodule Huffman do
 
     # {:freq, leafOrNode, freq}
     def buildRightLeaningTree([thingy1, thingy2 | rest_thingies]) do
+        # combines thingy1 and thingy2 and create new_node
+        # then rebuild the node sequence with "new_node" and "rest_thingies"
+        # by inserting the new node into right place
         createNode(thingy1, thingy2, rest_thingies)
-        |> rebuildTree(rest_thingies)
+        |> rebuildNodeSeq(rest_thingies)
         # |> buildRightLeaningTree()
     end
 
 
     # end of the building
-    def rebuildTree(node, []) do
+    def rebuildNodeSeq(node, []) do
         node
     end
     # insert built node {_, _, _, freq} into rest_thingies.
-    def rebuildTree(new_node, rest_thingies) do
+    def rebuildNodeSeq(new_node, rest_thingies) do
         {_, _, _, freq} = new_node
         index_to_insert = find_index(new_node, rest_thingies, 0)
         [thingy1, thingy2 | rest_thingies] = List.insert_at(rest_thingies, index_to_insert, new_node) # create new tree
