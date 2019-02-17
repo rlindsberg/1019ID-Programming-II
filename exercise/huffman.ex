@@ -118,6 +118,12 @@ defmodule Huffman do
     #     createNode(leaf1, leaf2, restLeaves)
     # end
 
+    def buildRightLeaningTree({:node, leaf1, leaf2, freq}) do
+        {:node, leaf1, leaf2, freq}
+    end
+    def buildRightLeaningTree([thingy1, thingy2 | [] ]) do
+        createNode(thingy1, thingy2, [])
+    end
     # {:freq, leafOrNode, freq}
     def buildRightLeaningTree([thingy1, thingy2 | rest_thingies]) do
         # combines thingy1 and thingy2 and create new_node
@@ -130,31 +136,38 @@ defmodule Huffman do
 
 
     # end of the building
-    def rebuildNodeSeq(node, []) do
-        node
+    def rebuildNodeSeq({nodeOrLeaf1, left1, right1, freq1}, [{nodeOrLeaf2, left2, right2, freq2}]) do
+        thingy1 = {nodeOrLeaf1, left1, right1, freq1}
+        thingy2 = {nodeOrLeaf2, left2, right2, freq2}
+        createNode(thingy1, thingy2, [])
+
     end
     # insert built node {_, _, _, freq} into rest_thingies.
     def rebuildNodeSeq(new_node, rest_thingies) do
         {_, _, _, freq} = new_node
         index_to_insert = find_index(new_node, rest_thingies, 0)
-        [thingy1, thingy2 | rest_thingies] = List.insert_at(rest_thingies, index_to_insert, new_node) # create new tree
-        createNode(thingy1, thingy2, rest_thingies)
-        |> rebuildTree(rest_thingies)
+        List.insert_at(rest_thingies, index_to_insert, new_node) # create new tree
+        |> buildRightLeaningTree()
     end
-    def buildRightLeaningTree([leaf1, leaf2 | restLeaves]) do
-        createNode(leaf1, leaf2, restLeaves)
-    end
-    # find node
+
+    # find node. "queue" is "rest_thingies", "n" is 0
     def find_index({_, _, _, freq}, queue, n) do
         # next node
         {_, _, _, next_freq} = Enum.at(queue, n)
-        compare_freq(freq, next_freq, queue, n+1)
+        compare_freq(freq, next_freq, queue, n)
     end
-    def compare_freq(freq, next_freq, queue, n) when freq < next_freq do
+    # only one element left in "queue"
+    def compare_freq(freq, next_freq, [], n) do
         n
     end
-    def compare_freq(freq, next_freq, queue, n) do
+    def compare_freq(freq, next_freq, queue, n) when freq <= next_freq do
+        n
+    end
+    def compare_freq(freq, next_freq, queue, n) when length(queue) > n+1 do
         find_index({"compared", "left", "right", freq}, queue, n+1)
+    end
+    def compare_freq(freq, next_freq, queue, n) do
+        n
     end
 
 
