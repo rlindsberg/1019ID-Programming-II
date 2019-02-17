@@ -137,10 +137,33 @@ Huffman.buildRightLeaningTree([thingy1, thingy2 | rest_thingies])
        {:leaf, "NULL", "y", 5}, 10}, {:leaf, "NULL", "u", 10}, 20}, 38}, 71},
    125}, 214}, {:leaf, "NULL", " ", 70}, 284}
 
-
-
-
-
+fixes bug #6
+tree = Huffman.test
+Huffman.buildRightLeaningTree(tree)
+{:node,
+ {:node,
+  {:node,
+   {:node,
+    {:node, {:node, {:leaf, "NULL", "c", 5}, {:leaf, "NULL", "p", 6}, 11},
+     {:leaf, "NULL", "r", 10}, 21}, {:leaf, "NULL", "t", 20}, 41},
+   {:node,
+    {:node, {:node, {:leaf, "NULL", "f", 6}, {:leaf, "NULL", "b", 7}, 13},
+     {:leaf, "NULL", "i", 11}, 24}, {:leaf, "NULL", "e", 24}, 48}, 89},
+  {:node,
+   {:node, {:node, {:leaf, "NULL", "s", 13}, {:leaf, "NULL", "n", 13}, 26},
+    {:node, {:leaf, "NULL", "a", 13}, {:leaf, "NULL", "o", 15}, 28}, 54},
+   {:node,
+    {:node,
+     {:node, {:node, {:leaf, "NULL", "d", 4}, {:leaf, "NULL", "\n", 4}, 8},
+      {:node, {:node, {:leaf, "NULL", "x", 2}, {:leaf, "NULL", "q", 2}, 4},
+       {:node, {:node, {:leaf, "NULL", "k", 1}, {:leaf, "NULL", "j", 1}, 2},
+        {:node, {:leaf, "NULL", "z", 1}, {:leaf, "NULL", "v", 1}, 2}, 4}, 8},
+      16}, {:leaf, "NULL", "l", 17}, 33},
+    {:node, {:node, {:leaf, "NULL", "w", 9}, {:leaf, "NULL", "h", 9}, 18},
+     {:node,
+      {:node, {:node, {:leaf, "NULL", "g", 2}, {:leaf, "NULL", "m", 3}, 5},
+       {:leaf, "NULL", "y", 5}, 10}, {:leaf, "NULL", "u", 10}, 20}, 38}, 71},
+   125}, 214}, {:leaf, "NULL", " ", 70}, 284}
 
 
 

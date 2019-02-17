@@ -131,7 +131,7 @@ defmodule Huffman do
         # by inserting the new node into right place
         createNode(thingy1, thingy2, rest_thingies)
         |> rebuildNodeSeq(rest_thingies)
-        # |> buildRightLeaningTree()
+        |> buildRightLeaningTree()
     end
 
 
@@ -147,7 +147,7 @@ defmodule Huffman do
         {_, _, _, freq} = new_node
         index_to_insert = find_index(new_node, rest_thingies, 0)
         List.insert_at(rest_thingies, index_to_insert, new_node) # create new tree
-        |> buildRightLeaningTree()
+        #|> buildRightLeaningTree()
     end
 
     # find node. "queue" is "rest_thingies", "n" is 0
@@ -185,7 +185,7 @@ defmodule Huffman do
         # buildRightLeaningTree(list)
     end
     def createNode({:leaf, empty, key2, value2},{:node, left, right, value1}, list) do
-        node = {:node, {:leaf, left, right, value1},{:node, empty, key2, value2}, value1 + value2}
+        node = {:node, {:node, left, right, value1},{:leaf, empty, key2, value2}, value1 + value2}
     end
     def createNode({:node, left1, right1, value1},{:node, left2, right2, value2}, list) do
         node = {:node, {:node, left1, right1, value1},{:node, left2, right2, value2}, value1 + value2}
