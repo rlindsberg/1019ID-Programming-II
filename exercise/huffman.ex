@@ -33,34 +33,53 @@ defmodule Huffman do
     end
 
     # create encode table from Huffman tree, {node, leaf}
-
-    def encode_table({:node, {:leaf, empty, char1, freq1}, {:leaf, empty, char2, freq2}, freq}, code_table, current_path) do
-        code_table = [code_table ++ [{char2, "#{current_path}#{0}" }] ]
-        code_table = [code_table ++ [{char1, "#{current_path}#{1}" }] ]
-        |> List.flatten
+    def encode_table({:node, left, right, freq}, code_table, current_path) do
+        left_code_table = encode_tb(left, code_table, "#{current_path}#{0}")
+        right_code_table = encode_tb(right, code_table, "#{current_path}#{1}")
+        left_code_table ++ right_code_table
     end
-    # result [{" ", "0"}, {"e", "10"}, {"f", "110"}, {"x", "1110"}, {"y", "11110"}]
-    # makes y 11111, find disappeared z
-    def encode_table({:node, {:leaf, empty, char1, freq1}, {:leaf, empty, char2, freq2}, freq}, code_table, current_path, left_node, left_node_path) do
-        code_table = [code_table ++ [{char2, "#{current_path}#{0}" }] ]
-        code_table = [code_table ++ [{char1, "#{current_path}#{1}" }] ]
-        encode_table(left_node, code_table, "#{left_node_path}#{0}")
+    def encode_table({:leaf, empty, key, value}, code_table, current_path) do
+        [code_table ++ [{key, "#{current_path}#{0}" }] ]
     end
 
-    def encode_table({:node, child_node, {:leaf, empty, child_leaf_key, child_leaf_value}, freq}, code_table, current_path, left_node, left_node_path) do
-        code_table = [code_table ++ [{child_leaf_key, "#{current_path}#{0}"}] ]
-        encode_table(child_node, code_table, "#{current_path}#{1}")
-    end
-    def encode_table({:node, child_node, {:leaf, empty, child_leaf_key, child_leaf_value}, freq}, code_table, current_path) do
-        code_table = [code_table ++ [{child_leaf_key, "#{current_path}#{0}"}] ]
-        encode_table(child_node, code_table, "#{current_path}#{1}")
-    end
-    def encode_table({:node, left_node, right_node, freq}, code_table, current_path) do
-        encode_table(right_node, code_table, "#{current_path}#{1}", left_node, current_path)
-    end
+    # # /3
+    # def encode_table({:node, {:leaf, empty, char1, freq1}, {:leaf, empty, char2, freq2}, freq}, code_table, current_path) do
+    #     code_table = [code_table ++ [{char2, "#{current_path}#{0}" }] ]
+    #     code_table = [code_table ++ [{char1, "#{current_path}#{1}" }] ]
+    #     |> List.flatten
+    # end
+    # # result [{" ", "0"}, {"e", "10"}, {"f", "110"}, {"x", "1110"}, {"y", "11110"}]
+    # # makes y 11111, find disappeared z
+    # # /5
+    # def encode_table({:node, {:leaf, empty, char1, freq1}, {:leaf, empty, char2, freq2}, freq}, code_table, current_path, left_node, left_node_path) do
+    #     code_table = [code_table ++ [{char2, "#{current_path}#{0}" }] ]
+    #     code_table = [code_table ++ [{char1, "#{current_path}#{1}" }] ]
+    #     encode_table(left_node, code_table, "#{left_node_path}#{0}", left_node, left_node_path)
+    # end
+    # # /5
+    # def encode_table({:node, child_node, {:leaf, empty, child_leaf_key, child_leaf_value}, freq}, code_table, current_path, left_node, left_node_path) do
+    #     code_table = [code_table ++ [{child_leaf_key, "#{current_path}#{0}"}] ]
+    #     encode_table(child_node, code_table, "#{current_path}#{1}", left_node, left_node_path)
+    # end
+    # # /3
+    # def encode_table({:node, child_node, {:leaf, empty, child_leaf_key, child_leaf_value}, freq}, code_table, current_path) do
+    #     code_table = [code_table ++ [{child_leaf_key, "#{current_path}#{0}"}] ]
+    #     encode_table(child_node, code_table, "#{current_path}#{1}")
+    # end
+    #
+    # # /5
+    # def encode_table({:node, left_child_node, right_child_node, freq}, code_table, current_path, left_node, left_node_path) do
+    #     encode_table(right_child_node, code_table, "#{current_path}#{1}", left_node, left_node_path)
+    # end
+    # # /3
+    # def encode_table({:node, left_child_node, right_child_node, freq}, code_table, current_path) do
+    #     encode_table(right_child_node, code_table, "#{current_path}#{1}", left_child_node, current_path)
+    # end
+
 
     def decode_table(tree) do
-        encode_table(tree, [], "")
+        # encode_table(tree, [], "")
+        3
     end
 
     # seq:

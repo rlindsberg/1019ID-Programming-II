@@ -167,8 +167,40 @@ Huffman.buildRightLeaningTree(tree)
 
 
 
+node, node, leaf
+[step001 , code_table , path] = Huffman.buildRightLeaningTree(tree) |> Huffman.encode_table([],"")
+   iex(130)> step001
+   {:node,
+    {:node,
+     {:node,
+      {:node, {:node, {:leaf, "NULL", "c", 5}, {:leaf, "NULL", "p", 6}, 11},
+       {:leaf, "NULL", "r", 10}, 21}, {:leaf, "NULL", "t", 20}, 41},
+     {:node,
+      {:node, {:node, {:leaf, "NULL", "f", 6}, {:leaf, "NULL", "b", 7}, 13},
+       {:leaf, "NULL", "i", 11}, 24}, {:leaf, "NULL", "e", 24}, 48}, 89},
+    {:node,
+     {:node, {:node, {:leaf, "NULL", "s", 13}, {:leaf, "NULL", "n", 13}, 26},
+      {:node, {:leaf, "NULL", "a", 13}, {:leaf, "NULL", "o", 15}, 28}, 54},
+     {:node,
+      {:node,
+       {:node, {:node, {:leaf, "NULL", "d", 4}, {:leaf, "NULL", "\n", 4}, 8},
+        {:node, {:node, {:leaf, "NULL", "x", 2}, {:leaf, "NULL", "q", 2}, 4},
+         {:node, {:node, {:leaf, "NULL", "k", 1}, {:leaf, "NULL", "j", 1}, 2},
+          {:node, {:leaf, "NULL", "z", 1}, {:leaf, "NULL", "v", 1}, 2}, 4}, 8},
+        16}, {:leaf, "NULL", "l", 17}, 33},
+      {:node, {:node, {:leaf, "NULL", "w", 9}, {:leaf, "NULL", "h", 9}, 18},
+       {:node,
+        {:node, {:node, {:leaf, "NULL", "g", 2}, {:leaf, "NULL", "m", 3}, 5},
+         {:leaf, "NULL", "y", 5}, 10}, {:leaf, "NULL", "u", 10}, 20}, 38}, 71},
+     125}, 214}
+   iex(131)> code_table
+   [[{" ", "0"}]]
+   iex(132)> path
+   "1"
 
 
+node, node
+   [step002 , code_table , path] = Huffman.buildRightLeaningTree(tree) |> Huffman.encode_table([],"")
 
 
 
