@@ -21,7 +21,7 @@ defmodule Huffman do
     end
 
     # bench
-    def buildTree do
+    def buildTable do
         sample = sample()
         |> freq
         |> sortListByFreq
@@ -87,10 +87,10 @@ defmodule Huffman do
     # end
 
 
-    def decode_table(tree) do
-        # encode_table(tree, [], "")
-        3
-    end
+    # def decode_table(tree) do
+    #     # encode_table(tree, [], "")
+    #     3
+    # end
 
     # seq:
     # ["110", "111111111110", "111111110", "11111110", "0", "111111110", "11111110",
