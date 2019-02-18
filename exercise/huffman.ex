@@ -20,6 +20,16 @@ defmodule Huffman do
 
     end
 
+    # bench
+    def buildTree do
+        sample = sample()
+        |> freq
+        |> sortListByFreq
+        |> Enum.map(fn {key, value} -> {:leaf, "NULL", key, value} end) # [{:leaf, empty, " ", 78},...]
+        |> buildRightLeaningTree()
+        |> encode_table([], "")
+    end
+
     # we represent a leaf with a single character and a node as a simple tuple
     # with two branches: {left, right}. node = {left = char, right = node}
     def tree(sample) do
@@ -34,12 +44,12 @@ defmodule Huffman do
 
     # create encode table from Huffman tree, {node, leaf}
     def encode_table({:node, left, right, freq}, code_table, current_path) do
-        left_code_table = encode_tb(left, code_table, "#{current_path}#{0}")
-        right_code_table = encode_tb(right, code_table, "#{current_path}#{1}")
+        left_code_table = encode_table(left, code_table, "#{current_path}#{0}")
+        right_code_table = encode_table(right, code_table, "#{current_path}#{1}")
         left_code_table ++ right_code_table
     end
     def encode_table({:leaf, empty, key, value}, code_table, current_path) do
-        [code_table ++ [{key, "#{current_path}#{0}" }] ]
+        code_table ++ [{key, "#{current_path}#{0}" }]
     end
 
     # # /3
