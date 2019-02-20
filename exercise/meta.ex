@@ -25,7 +25,9 @@ defmodule Env do
     # removes all bindings for variables in the list ids and returns the environment
     def remove(ids, env) do
         List.foldr(ids, env, fn(ids, env) ->
-        List.keydelete(env, ids, 0)
+            IO.puts("removing")
+            IO.inspect(ids)
+            List.keydelete(env, ids, 0)
         end)
     end
 end
