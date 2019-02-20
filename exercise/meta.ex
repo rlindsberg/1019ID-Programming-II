@@ -1,4 +1,12 @@
 defmodule Env do
+    # list_of_ids_to_remove = [:y, :w, :z]
+    # env = [x: 1, y: 3, z: 5, w: 7]
+    def test(list_of_ids_to_remove, env) do
+        List.foldr(list_of_ids_to_remove, env, fn x, acc ->
+            IO.inspect(acc)
+            {x,acc}
+        end)
+    end
     # return an empty environment
     def new() do
         []
