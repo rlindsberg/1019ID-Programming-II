@@ -19,7 +19,7 @@ defmodule Env do
 
     # return either {id, str}, if the variable id was bound, or nil
     def lookup(id, env) do
-        List.keyfind(env, id, 0)
+        #List.keyfind(env, id, 0)
     end
 
     # removes all bindings for variables in the list ids and returns the environment
@@ -29,5 +29,11 @@ defmodule Env do
             IO.inspect(ids)
             List.keydelete(env, ids, 0)
         end)
+    end
+end
+
+defmodule Eager do
+    def test do
+        9
     end
 end
