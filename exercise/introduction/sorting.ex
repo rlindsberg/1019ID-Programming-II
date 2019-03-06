@@ -36,41 +36,33 @@ defmodule Sorting do
     def msort(originalList) do
         # split originalList
         {l1, l2} = splitArrayToTwoEvenArrays(l, [], [])
+        # Breaks down l1 and l2 further into atoms recursively
+        sortSingleElementIntoOrderedArray(msort(l1), msort(l2))
 
+    end
 
+    # merge two list by iterating through themm one item at a time.
+    def sortSingleElementIntoOrderedArray([], l2) do
+        l2
+    end
+    def sortSingleElementIntoOrderedArray(l1, []) do
+        l1
+    end
+    # sortSingleElementIntoOrderedArray(l1, l2)
+    # *************** [x2 | _] = l2 ***************
+    def sortSingleElementIntoOrderedArray([x1 | body1], [x2 | _] = l2) when x1 < x2 do
+        [x1 | sortSingleElementIntoOrderedArray(body1, l2)]
+    end
+    # sortSingleElementIntoOrderedArray(l1, l2) when x1 > x2
+    def sortSingleElementIntoOrderedArray(l1, [x2, body2]) do
+        [x2 | sortSingleElementIntoOrderedArray(l1, body2)]
     end
 
     # array is empty, returns.
     def splitArrayToTwoEvenArrays([], l1, l2) do {l1, l2} end
-
-
-    def msort(l) do
-        case ...  do
-            ... ->
-                ...
-            ... ->
-                {.., ...} = msplit(l, [], [])
-                merge(msort(...), msort(...))
-        end
-    end
-
-    def merge(..., ...) do ... end
-    def merge(..., ...) do ... end
-    def merge(..., ...) do
-        if ...
-            merge(.., ...)
-        else
-            merge(.., ...)
-        end
-    end
-
-    def msplit(..., ..., ...) do
-        case ... do
-            ... ->
-                {..., ...}
-                ... ->
-                    msplit(..., ..., ...)
-        end
+    def splitArrayToTwoEvenArrays([x | body], l1, l2) do
+        # insert the first element x into l1 and l2 alternatively
+        splitArrayToTwoEvenArrays(body, [x | l2], l1)
     end
 
 
