@@ -25,6 +25,25 @@ defmodule Sorting do
         [element | list]
     end
 
+    # In merge sort, you divide the list into two (as equal as possible) list. Then you merge sort each of these lists to obtain two sorted sub-lists. These sorted sub-lists are then merged into one final sorted list.
+    # The two lists are merged by picking the smallest of the elements from each of the lists. Since each list is sorted, one need only to look at the first element of each list to determine which element is the smallest.
+
+    # sort empty list.
+    def msort([]) do [] end
+    # sort simgle element list.
+    def msort([element]) do [element] end
+    # nu kör vi
+    def msort(originalList) do
+        # split originalList
+        {l1, l2} = splitArrayToTwoEvenArrays(l, [], [])
+
+
+    end
+
+    # array is empty, returns.
+    def splitArrayToTwoEvenArrays([], l1, l2) do {l1, l2} end
+
+
     def msort(l) do
         case ...  do
             ... ->
