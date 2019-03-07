@@ -20,10 +20,15 @@ defmodule Derivative do
     def deriv({:var, y}, _) do
         {:const, 0}
     end
-    # derivative av multiplication
+    # derivative of multiplication
     def deriv({:mul, e1, e2}, v) do
         #f'x * gx + fx * g'x
         {:add, {:mul deriv(e1, v), e2}, {:mul, e1, deriv(e2, v)}}
+    end
+    # derivative of power function (potensfunktion)
+    def deriv({:exp, {:var, x}, {:const, n}}, x) do
+        # n * x^(n-1)
+        {:mul, {:const, n}, {:exp, {:var, x}, {:const, n - 1}}}
     end
     # derivative of polynom
     def deriv({:add, e1, e2}, v) do
@@ -35,6 +40,6 @@ defmodule Derivative do
     # The results of our derivation may contain multiplications with zero,
     # addition with constant values etc.
     #1 Evaluate all functions with constant arguments
-    
+
 
 end
