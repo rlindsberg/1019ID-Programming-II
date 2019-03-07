@@ -31,4 +31,10 @@ defmodule Derivative do
         {:add, deriv(e1, v), deriv(e2, v)}
     end
 
+    # Simplification
+    # The results of our derivation may contain multiplications with zero,
+    # addition with constant values etc.
+    #1 Evaluate all functions with constant arguments
+    
+
 end
