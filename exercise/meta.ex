@@ -14,6 +14,7 @@ defmodule Env do
 
     # binds variable id to the structure str and returns the environment
     def add(id, str, env) do
+        # [{id, str} | env]
         [{id, str}] ++ env
     end
 
