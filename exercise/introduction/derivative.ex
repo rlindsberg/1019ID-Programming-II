@@ -7,12 +7,17 @@ defmodule Derivative do
     @type expr() :: {:add, expr(), expr()}
                 | {:mul, expr(), expr()}
                 | literal()
-    # 
-    def deriv do
 
-    end
+    # 2x + 3 = {:add, {:mul, {:const, 2}, {:var, :x}}, {:const, 3}}
+    def deriv({:const, _}, _), do: ...
 
+    def deriv({:var, v}, v), do: ...
 
+    def deriv({:var, y}, _), do: ...
+
+    def deriv({:mul, e1, e2}, v), do: ...
+
+    def deriv({:add, e1, e2}, v), do: ...
 
 
 end
